@@ -14,8 +14,7 @@ import java.util.List;
 
 public class UserBorrowInformationDaoImpl implements UserBorrowInformationDao {
     @Override
-    public PageBean<BookBorrowInformation> getUserBorrowInformation(BookBorrowInformation book) {
-        PageBean<BookBorrowInformation> bean = new PageBean<>();
+    public List<BookBorrowInformation >getUserBorrowInformation(BookBorrowInformation book) {
         Integer userId = book.getUser_id();
         //根据userId查询用户借书信息表
         String selectSql = "SELECT " +
@@ -27,12 +26,12 @@ public class UserBorrowInformationDaoImpl implements UserBorrowInformationDao {
         Connection conn = DbUtils.getConnection();
         PreparedStatement ps = null;
         ResultSet re = null;
+        List<BookBorrowInformation> list = null;
         try {
             ps = conn.prepareStatement(selectSql);
             ps.setObject(1,userId);
             re = ps.executeQuery();
-            List<BookBorrowInformation> list = DataUtils.getAll(BookBorrowInformation.class, re);
-            bean.setSelectUserDataA(list);
+            list = DataUtils.getAll(BookBorrowInformation.class, re);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } catch (Exception e) {
@@ -40,7 +39,6 @@ public class UserBorrowInformationDaoImpl implements UserBorrowInformationDao {
         } finally {
             DbUtils.colse(re,ps,conn);
         }
-        return bean;
-
+        return list;
     }
 }

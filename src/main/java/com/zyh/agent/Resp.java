@@ -22,7 +22,6 @@ public class Resp {
                 e.printStackTrace();
             }
         }
-        System.out.println("数据格式存在问题");
     }
 
     public static void setChAndCT(HttpServletResponse resp) {

@@ -14,7 +14,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
+import java.util.List;
+/*
+* 用户点击查询借阅历史显示当前用户(根据用户的id)的所用借阅历史*/
 @WebServlet("/UserBorrowInformation")
 public class UserBorrowInformationServlet extends HttpServlet {
     private UserBorrowInformationImpl service = null;
@@ -29,10 +31,8 @@ public class UserBorrowInformationServlet extends HttpServlet {
         //id为页面中当前用户的id
         int userId = Integer.parseInt(req.getParameter("userId"));
         book.setUser_id(userId);//后台做了id处理,若是瞎几把乱入书给一条假信息
-        PageBean<BookBorrowInformation> bean = service.getUserBorrowInformation(book);
-        Send<PageBean<BookBorrowInformation>> beanSend = Send.sendJsonSucess(bean);
-        Resp.RespJson(resp, beanSend);
-
-
+        List<BookBorrowInformation> bean = service.getUserBorrowInformation(book);
+        Send<List<BookBorrowInformation>> listSend = Send.sendJsonSucess(bean);
+        Resp.RespJson(resp,listSend);
     }
 }
