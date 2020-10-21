@@ -17,7 +17,7 @@ public class DbUtils {
     private static DruidDataSource druidDataSource;
 
     static {
-        InputStream is =  DbUtils.class.getClassLoader().getResourceAsStream(JDBC_PROPERTISE);
+        InputStream is =  DbUtils.class.getClassLoader().getResourceAsStream("jdbc.properties");
         Properties properties = new Properties();
         try {
             properties.load(is);

@@ -1,6 +1,7 @@
 package com.zyh.utils;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 /*分页信息实体类*/
@@ -40,8 +41,8 @@ public class PageBean<T> {
         //当前页数加上处理
         if (currentPage <= 0) {
             this.currentPage = 1;
-        } else if (currentPage >= getTotalPage()) {
-            this.currentPage = getTotalPage();
+        } else if (currentPage > getTotalPage()) {
+            this.currentPage = 1;
         } else {
             this.currentPage = currentPage;
         }
@@ -69,8 +70,9 @@ public class PageBean<T> {
     public boolean isHasDownPage() {
         if (getCurrentPage() == totalPage) {
             return false;
+        }else {
+            return true;
         }
-        return true;
     }
 
 }

@@ -34,14 +34,14 @@ public class UserSeclectBookDaoImpl implements UserSeclectBookDao {
         //获取正确的当前数据的页数
         Integer rightCurrentPage = bean.getCurrentPage();
         //编写SQL语句(查询书籍的描述位置,和书籍当前的本数,根据接收数据)
-        StringBuffer strBuf = new StringBuffer("select book_describe ,book_count  from book_information where 1 = 1");
+        StringBuffer strBuf = new StringBuffer("select book_name, book_describe ,book_count  from book_information where 1 = 1");
         if (bookId >= 1 && bookId <= 150) {
             strBuf.append(" and book_id = ? ");
         }
-        if (bookAuthor != null && !"".equals(bookAuthor)) {
+        if (bookAuthor != null && !" ".equals(bookAuthor)) {
             strBuf.append("  and book_author = ? ");
         }
-        if (bookName != null && !"".equals(bookName)) {
+        if (bookName != null && !" ".equals(bookName)) {
             strBuf.append("  and book_name = ? ");
         }
         if (bookTypeId >= 1 && bookTypeId <= 150) {
@@ -63,10 +63,10 @@ public class UserSeclectBookDaoImpl implements UserSeclectBookDao {
             if (bookId >= 1 && bookId <= 150) {
                 ps.setObject(++num,bookId);
             }
-            if (bookAuthor != null && !"".equals(bookAuthor)) {
+            if (bookAuthor != null && !" ".equals(bookAuthor)) {
                 ps.setObject(++num,bookAuthor);
             }
-            if (bookName != null && !"".equals(bookName)) {
+            if (bookName != null && !" ".equals(bookName)) {
                 ps.setObject(++num,bookName);
             }
             if (bookTypeId >= 1 && bookTypeId <= 150) {
@@ -80,12 +80,15 @@ public class UserSeclectBookDaoImpl implements UserSeclectBookDao {
             //遍历结果集
             while (re.next()) {
                 books = new Book();
+                String book_name = re.getString("book_name");
                 String bookDescribe = re.getString("book_describe");//书籍描述
                 int bookCount = re.getInt("book_count");//书籍数量
-                book.setBookCount(bookCount);
-                book.setBookDscribe(bookDescribe);
+                books.setBookName(book_name);
+                books.setBookCount(bookCount);
+                books.setBookDscribe(bookDescribe);
                 list.add(books);
             }
+            list.forEach(str-> System.out.println(str));
             bean.setSelectUserDataA(list);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -99,10 +102,10 @@ public class UserSeclectBookDaoImpl implements UserSeclectBookDao {
         if (bookId >= 1 && bookId <= 150) {
             strBuf.append(" and book_id = ? ");
         }
-        if (bookAuthor != null && !"".equals(bookAuthor)) {
-            strBuf.append("  and book_author = ? ");
+        if (bookAuthor != null && !" ".equals(bookAuthor)) {
+            strBuf.append("  and book_author =  ? ");
         }
-        if (bookName != null && !"".equals(bookName)) {
+        if (bookName != null && !" ".equals(bookName)) {
             strBuf.append("  and book_name = ? ");
         }
         if (bookTypeId >= 1 && bookTypeId <= 150) {
@@ -120,10 +123,10 @@ public class UserSeclectBookDaoImpl implements UserSeclectBookDao {
             if (bookId >= 1 && bookId <= 150) {
                 ps.setObject(++num,bookId);
             }
-            if (bookAuthor != null && !"".equals(bookAuthor)) {
+            if (bookAuthor != null && !" ".equals(bookAuthor)) {
                 ps.setObject(++num,bookAuthor);
             }
-            if (bookName != null && !"".equals(bookName)) {
+            if (bookName != null && !" ".equals(bookName)) {
                 ps.setObject(++num,bookName);
             }
             if (bookTypeId >= 1 && bookTypeId <= 150) {
